@@ -1,7 +1,8 @@
 import { config } from "dotenv";
 config();
 import express from "express";
-
+import { dbConnected } from "./utility/db.js";
+import router from "./router/index.js";
 const PORT = process.env.PORT;
 const app = express();
 
@@ -13,6 +14,10 @@ app.get("/", (_req, res) => {
   });
 });
 
+app.use("/api", router);
+
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
 });
+
+dbConnected();
