@@ -2,18 +2,17 @@ import argon from "argon2";
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  name: String,
+  email: String,
+  password: String,
 });
 
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
-    next();
-  }
+  if (!this.isModified("password")) return next();
   try {
-    const hashedPassword = await argon.hash(this.password, 12);
-    this.password = hashedPassword;
+    this.password = await argon.hash(this.password);
+
+    next();
   } catch (error) {
     next(error);
   }
