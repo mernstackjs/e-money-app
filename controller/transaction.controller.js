@@ -53,3 +53,23 @@ export const sendMoney = async (req, res) => {
     res.status(500).json({ message: "Transaction failed", error: err.message });
   }
 };
+
+export const getTransactions = async (req, res) => {
+  const userId = req.user._id;
+
+  try {
+    const transactions = await Transaction.find({
+      $or: [{ from: userId }, { to: userId }],
+    })
+      .populate("from", "email")
+      .populate("to", "email")
+      .sort({ timestamp: -1 });
+
+    res.status(200).json({
+      count: transactions.length,
+      transactions,
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Transaction failed", error: err.message });
+  }
+};
