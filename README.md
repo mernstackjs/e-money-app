@@ -1,6 +1,6 @@
 # 💸 E-Money Exchange System
 
-Built in just **5 hours** and **17 commits** — because sleep is optional and coffee is OP ☕⚡  
+Built in just **5 hours** and **21 commits** — because sleep is optional and coffee is OP ☕⚡  
 Currently centralized (CEX vibes), but planning to evolve into a **DEX boss fight** soon 🚀
 
 ---
